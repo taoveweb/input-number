@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Touchable from 'rmc-feedback';
-
 class InputHandler extends Component {
   render() {
     const {

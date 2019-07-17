@@ -6,6 +6,22 @@ import InputHandler from './InputHandler';
 
 function noop() {
 }
+function fixed(num, precision) {
+  let des = `${num}`;
+  if (des.indexOf('.') > 0 && des.split('.')[1].length > precision) {
+    const desArr = des.split('.');
+    des = `${desArr[0]}.${desArr[1].slice(0, precision)}`;
+    return des;
+  }
+  if (des.length === 15 && des.indexOf('.') === -1) {
+    return des;
+  }
+  if (des.length === 14 && des.indexOf('.') === -1) {
+    return des;
+  }
+  const precisionFixed = 15 - des.length <= precision ? 14 - des.length : precision;
+  return num.toFixed(precisionFixed);
+}
 
 function preventDefault(e) {
   e.preventDefault();
@@ -356,7 +372,7 @@ export default class InputNumber extends React.Component {
     // https://github.com/ant-design/ant-design/issues/7363
     // https://github.com/ant-design/ant-design/issues/16622
     const newValueInString = typeof newValue === 'number'
-      ? newValue.toFixed(precision) : `${newValue}`;
+      ? fixed(newValue, precision) : `${newValue}`;
     const changed = newValue !== value || newValueInString !== `${inputValue}`;
     if (!('value' in this.props)) {
       this.setState({
@@ -517,7 +533,7 @@ export default class InputNumber extends React.Component {
     }
     const precision = Math.abs(this.getMaxPrecision(num));
     if (!isNaN(precision)) {
-      return Number(num).toFixed(precision);
+      return fixed(Number(num), precision);
     }
     return num.toString();
   }
@@ -539,7 +555,7 @@ export default class InputNumber extends React.Component {
       return num;
     }
     if (isValidProps(this.props.precision)) {
-      return Number(Number(num).toFixed(this.props.precision));
+      return Number(fixed(Number(num), this.props.precision));
     }
     return Number(num);
   }
