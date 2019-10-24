@@ -134,7 +134,6 @@ export default class InputNumber extends React.Component {
     // ref: null < 20 === true
     // https://github.com/ant-design/ant-design/issues/14277
 
-    !this.props.className && console.log(this.props, ' this.props');
     if (
       this.state.focused &&
       'max' in nextProps &&
@@ -224,6 +223,7 @@ export default class InputNumber extends React.Component {
     this.stop();
   }
 
+  // eslint-disable-next-line react/sort-comp
   fixed = (num, precision) => {
     let des = `${num}`;
     const otherNum = new bigDecimal(num);
@@ -374,10 +374,10 @@ export default class InputNumber extends React.Component {
       return bigVal;
     }
 
-    if (bigDecimal.compareTo(val, min) == -1 && min && this.state.focused) {
+    if (bigDecimal.compareTo(val, min) === -1 && min && this.state.focused) {
       val = min;
     }
-    if (bigDecimal.compareTo(val, max) == 1 && max && this.state.focused) {
+    if (bigDecimal.compareTo(val, max) === 1 && max && this.state.focused) {
       val = max;
     }
 
