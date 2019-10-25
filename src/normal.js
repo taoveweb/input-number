@@ -4,15 +4,15 @@ import classNames from 'classnames';
 import KeyCode from 'rc-util/lib/KeyCode';
 import InputHandler from './InputHandler';
 import BigDecimal from 'js-big-decimal';
-let max = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
+// let max = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 function noop() {
 }
 
 function fixed(num, precision) {
   let des = `${num}`;
-  if (`${max}`.length > 15 || parseFloat(num, 10) > max) {
-    return max;
-  }
+  // if (`${max}`.length > 15 || parseFloat(num, 10) > max) {
+  //   return max;
+  // }
   // @ts-ignore
   const otherNum = new BigDecimal(num);
   if (des.indexOf('.') > 0 && des.split('.')[1].length > precision) {
@@ -143,9 +143,9 @@ export default class InputNumber extends React.Component {
       value = props.defaultValue;
     }
     this.state = {};
-    if (props.max) {
-      max = props.max;
-    }
+    // if (props.max) {
+    //   max = props.max;
+    // }
     value = this.toNumber(value);
     value = this.getValidValue(value);
 
